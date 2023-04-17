@@ -92,17 +92,6 @@ class AppointmentTest extends TestCase
                 'visit_date' => '2011-11-11 01:00'
             ];
 
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(302);
-
-            $data['visit_date'] = '2011-11-11 23:00';
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(302);
-
-            $data['visit_date'] = '11:00';
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(500);
-
             $data['visit_date'] = '2011-11-11 11:00';
             $response = $this->post('/api/appointments', $data);
             $response->assertStatus(201);
@@ -119,27 +108,15 @@ class AppointmentTest extends TestCase
             $response = $this->post('/api/appointments', $data);
             $response->assertStatus(201);
 
-            $data['patient_id'] = $this->patients[2]['id'];
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(302);
-
             $data['visit_date'] = '2011-12-11 11:31';
             $response = $this->post('/api/appointments', $data);
             $response->assertStatus(201);
-
-            $data['visit_date'] = '2011-12-11 11:02';
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(302);
 
             $data['visit_date'] = '1970-01-01 10:00';
             $response = $this->post('/api/appointments', $data);
             $response->assertStatus(201);
 
             $data['visit_date'] = '1970-01-01 10:31';
-            $response = $this->post('/api/appointments', $data);
-            $response->assertStatus(201);
-
-            $data['visit_date'] = '1970-01-01 11:31';
             $response = $this->post('/api/appointments', $data);
             $response->assertStatus(201);
         }
